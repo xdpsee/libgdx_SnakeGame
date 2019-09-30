@@ -211,11 +211,7 @@ public class GameScreen extends ScreenAdapter {
         drawScore(batch);
 
         if (state == State.GAME_OVER) {
-            layout.setText(bitmapFont, Constants.GAME_OVER_TEXT_TIPS);
-            bitmapFont.draw(batch
-                    , layout
-                    , (viewport.getWorldWidth() - layout.width) / 2
-                    , (viewport.getWorldHeight() - layout.height) / 2);
+            drawGameOver();
         }
 
         batch.end();
@@ -230,7 +226,14 @@ public class GameScreen extends ScreenAdapter {
                     , (viewport.getWorldWidth() - layout.width) / 2
                     , (viewport.getWorldHeight() * 4f / 5) - layout.height / 2);
         }
+    }
 
+    private void drawGameOver() {
+        layout.setText(bitmapFont, Constants.GAME_OVER_TEXT_TIPS);
+        bitmapFont.draw(batch
+                , layout
+                , (viewport.getWorldWidth() - layout.width) / 2
+                , (viewport.getWorldHeight() - layout.height) / 2);
     }
 
     private void clearScreen() {
