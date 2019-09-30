@@ -43,6 +43,8 @@ public class GameScreen extends ScreenAdapter {
 
     private Music hissMusic;
 
+    private Sound alertSound;
+
     // snake
     private Texture snakeHead;
 
@@ -84,6 +86,7 @@ public class GameScreen extends ScreenAdapter {
         viewport = new FitViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, camera);
 
         biteSound = Gdx.audio.newSound(Gdx.files.internal("bite_apple.wav"));
+        alertSound = Gdx.audio.newSound(Gdx.files.internal("alert.wav"));
         hissMusic = Gdx.audio.newMusic(Gdx.files.internal("snake_hiss.wav"));
         hissMusic.setLooping(true);
         hissMusic.play();
@@ -173,7 +176,9 @@ public class GameScreen extends ScreenAdapter {
 
         for (BodyPart part : bodyParts) {
             if (part.x == snakeX && part.y == snakeY) {
+                hissMusic.pause();
                 state = State.GAME_OVER;
+                alertSound.play();
             }
         }
     }
@@ -251,6 +256,7 @@ public class GameScreen extends ScreenAdapter {
         snakeBody.dispose();
         hissMusic.dispose();
         biteSound.dispose();
+        alertSound.dispose();
         bitmapFont.dispose();
         layout.reset();
     }
@@ -357,6 +363,7 @@ public class GameScreen extends ScreenAdapter {
         directionSet = false;
         timer = 0;
         score = 0;
+        hissMusic.play();
     }
 
     private class BodyPart {
