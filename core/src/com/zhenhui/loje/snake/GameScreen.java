@@ -73,7 +73,7 @@ public class GameScreen extends ScreenAdapter {
 
     private State state = State.PLAYING;
 
-    private boolean drawGrid = true;
+    private boolean drawGrid = false;
 
     private int score = 0;
 
