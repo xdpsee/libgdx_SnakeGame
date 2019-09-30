@@ -330,8 +330,19 @@ public class GameScreen extends ScreenAdapter {
                 appleX = MathUtils.random((int) viewport.getWorldWidth() / MOVEMENT_STEP - 1) * MOVEMENT_STEP;
                 appleY = MathUtils.random((int) viewport.getWorldHeight() / MOVEMENT_STEP - 1) * MOVEMENT_STEP;
                 appleAvailable = true;
-            } while (snakeX == appleX && snakeY == appleY);
+            } while (isApplePositionConflicts(appleX, appleY));
         }
+    }
+
+    private boolean isApplePositionConflicts(int newX, int newY) {
+
+        for (BodyPart part : bodyParts) {
+            if (part.x == newX && part.y == newY) {
+                return true;
+            }
+        }
+
+        return snakeX == newX && snakeY == newY;
     }
 
     private void checkAppleCollision() {
