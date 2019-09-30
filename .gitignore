@@ -3,6 +3,8 @@
 /local.properties
 .idea
 .DS_Store
-/build
+/android/build
+/core/build
+/destop/build
 /captures
 .externalNativeBuild
