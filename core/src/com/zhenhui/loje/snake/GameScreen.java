@@ -3,6 +3,8 @@ package com.zhenhui.loje.snake;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -36,6 +38,10 @@ public class GameScreen extends ScreenAdapter {
     private BitmapFont bitmapFont;
 
     private GlyphLayout layout;
+
+    private Sound biteSound;
+
+    private Music hissMusic;
 
     // snake
     private Texture snakeHead;
@@ -76,6 +82,11 @@ public class GameScreen extends ScreenAdapter {
         camera.position.set(new Vector2(Constants.WORLD_WIDTH / 2, Constants.WORLD_HEIGHT / 2), 0);
         camera.update();
         viewport = new FitViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, camera);
+
+        biteSound = Gdx.audio.newSound(Gdx.files.internal("bite_apple.wav"));
+        hissMusic = Gdx.audio.newMusic(Gdx.files.internal("snake_hiss.wav"));
+        hissMusic.setLooping(true);
+        hissMusic.play();
 
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
@@ -233,6 +244,15 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void dispose() {
         batch.dispose();
+        shapeRenderer.dispose();
+        bitmapFont.dispose();
+        apple.dispose();
+        snakeHead.dispose();
+        snakeBody.dispose();
+        hissMusic.dispose();
+        biteSound.dispose();
+        bitmapFont.dispose();
+        layout.reset();
     }
 
     private void handleInput() {
@@ -307,9 +327,10 @@ public class GameScreen extends ScreenAdapter {
             } while (snakeX == appleX && snakeY == appleY);
         }
     }
-
+    
     private void checkAppleCollision() {
         if (appleAvailable && (snakeX == appleX) && (snakeY == appleY)) {
+            biteSound.play();
             BodyPart bodyPart = new BodyPart(snakeBody);
             bodyPart.updatePos(snakeX, snakeY);
             bodyParts.insert(0, bodyPart);
