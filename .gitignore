@@ -5,6 +5,6 @@
 .DS_Store
 /android/build
 /core/build
-/destop/build
+/desktop/build
 /captures
 .externalNativeBuild
