@@ -2,7 +2,7 @@ package com.zhenhui.loje.snake;
 
 public class Constants {
 
-    public static final String GAME_OVER_TEXT_TIPS = "Game Over, Tap Space To Restart Game!!!";
+    public static final String GAME_OVER_TEXT_TIPS = "游戏结束，请按空格键重新开始！";
 
     public static final int SCORE_PER_APPLE = 20;
 

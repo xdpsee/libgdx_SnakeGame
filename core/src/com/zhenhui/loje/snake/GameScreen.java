@@ -92,9 +92,7 @@ public class GameScreen extends ScreenAdapter {
         shapeRenderer = new ShapeRenderer();
 
         layout = new GlyphLayout();
-        bitmapFont = new BitmapFont();
-        bitmapFont.setColor(Color.GOLD);
-        bitmapFont.getData().setScale(1.2f);
+        bitmapFont = new BitmapFont(Gdx.files.internal("my.fnt"));
 
         snakeHead = new Texture(Gdx.files.internal("snake_head.png"));
         snakeBody = new Texture(Gdx.files.internal("snake_body.png"));
@@ -220,7 +218,6 @@ public class GameScreen extends ScreenAdapter {
                     , (viewport.getWorldHeight() - layout.height) / 2);
         }
 
-
         batch.end();
     }
 
@@ -327,7 +324,7 @@ public class GameScreen extends ScreenAdapter {
             } while (snakeX == appleX && snakeY == appleY);
         }
     }
-    
+
     private void checkAppleCollision() {
         if (appleAvailable && (snakeX == appleX) && (snakeY == appleY)) {
             biteSound.play();
